@@ -9,7 +9,8 @@ import {
   faSpinner,
   faExclamationTriangle 
 } from '@fortawesome/free-solid-svg-icons'
-
+import WeatherTable from '../components/WeatherTable'
+import WeatherSummary from '../components/WeatherSummary'
 
 export default function HomePage() {
   const searchParams = useSearchParams()
@@ -32,8 +33,8 @@ export default function HomePage() {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setLatitude(position.coords.latitude.toFixed(6))
-        setLongitude(position.coords.longitude.toFixed(6))
+        setLatitude(position.coords.latitude.toFixed(4))
+        setLongitude(position.coords.longitude.toFixed(4))
         setLocationLoading(false)
       },
       (error) => {
@@ -47,6 +48,76 @@ export default function HomePage() {
       }
     )
   }
+
+  const fetchWeatherDataWithCoord = async (lat: string, lon: string) => {
+    setWeatherData(getMockWeatherData())
+  }
+  const fetchWeatherData = async () => {
+    await fetchWeatherDataWithCoord(latitude, longitude)
+  }
+
+// test
+  const getMockWeatherData = () => ({
+    daily: [
+      {
+        date: '17/06/2025',
+        weatherCode: 1,
+        tempMax: 24,
+        tempMin: 16,
+        solarEnergy: 4.2
+      },
+      {
+        date: '18/06/2025',
+        weatherCode: 2,
+        tempMax: 26,
+        tempMin: 18,
+        solarEnergy: 3.8
+      },
+      {
+        date: '19/06/2025',
+        weatherCode: 61,
+        tempMax: 22,
+        tempMin: 15,
+        solarEnergy: 2.1
+      },
+      {
+        date: '20/06/2025',
+        weatherCode: 3,
+        tempMax: 25,
+        tempMin: 17,
+        solarEnergy: 3.5
+      },
+      {
+        date: '21/06/2025',
+        weatherCode: 0,
+        tempMax: 28,
+        tempMin: 19,
+        solarEnergy: 5.1
+      },
+      {
+        date: '22/06/2025',
+        weatherCode: 80,
+        tempMax: 21,
+        tempMin: 14,
+        solarEnergy: 1.8
+      },
+      {
+        date: '23/06/2025',
+        weatherCode: 1,
+        tempMax: 23,
+        tempMin: 16,
+        solarEnergy: 4.0
+      }
+    ],
+    summary: {
+      tempMin: 14,
+      tempMax: 28,
+      avgPressure: 1013.2,
+      avgSunExposure: 6.8,
+      comment: 'Przeważnie słoneczny tydzień z pojedynczymi opadami w środku okresu.'
+    }
+  })
+
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -115,7 +186,7 @@ export default function HomePage() {
             </button>
             
             <button
-              
+              onClick={fetchWeatherData}
               disabled={loading || !latitude || !longitude}
               className="btn-primary flex items-center justify-center space-x-2 flex-1"
             >
@@ -145,7 +216,8 @@ export default function HomePage() {
       {/* Weather Results */}
       {weatherData && (
         <div className="space-y-8 animate-fade-in">
-          
+          <WeatherTable data={weatherData.daily} />
+          <WeatherSummary data={weatherData.summary} />
         </div>
       )}
 
