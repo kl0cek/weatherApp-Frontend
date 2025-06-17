@@ -175,7 +175,7 @@ export default function HomePage() {
           </div>
           <div>
             <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">
-              Wybierz z mapy
+              Wybierz z mapy w trakcie heh bedzie to bedzie frfr
             </h4>
             <p>
               Przejdź do sekcji &quot;Wybierz z mapy&quot; aby wybrać lokalizację 

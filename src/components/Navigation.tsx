@@ -12,17 +12,21 @@ import {
   faBars, 
   faTimes 
 } from '@fortawesome/free-solid-svg-icons'
+import { useTheme } from './ThemeProvider'
 
 export default function Navigation() {
   const pathname = usePathname()
-  const [ isMenuOpen, setIsMenuOpen ] = useState(false);
+  const { theme, setTheme } = useTheme()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navigation = [
-    { name: 'HomePage', href: '/', icon: faHome },
-    { name: 'Choose from map', href: '/map', icon:faMapMarkerAlt }
+    { name: 'Strona główna', href: '/', icon: faHome },
+    { name: 'Wybierz z mapy', href: '/map', icon: faMapMarkerAlt },
   ]
 
-  
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-lg transition-colors duration-300">
@@ -55,22 +59,28 @@ export default function Navigation() {
             ))}
             
             <button
-              
+              onClick={toggleTheme}
               className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500"
               aria-label="Przełącz motyw"
             >
-              
+              <FontAwesomeIcon 
+                icon={theme === 'dark' ? faSun : faMoon} 
+                className="w-4 h-4" 
+              />
             </button>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
             <button
-              
+              onClick={toggleTheme}
               className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"
               aria-label="Przełącz motyw"
             >
-              
+              <FontAwesomeIcon 
+                icon={theme === 'dark' ? faSun : faMoon} 
+                className="w-4 h-4" 
+              />
             </button>
             
             <button
