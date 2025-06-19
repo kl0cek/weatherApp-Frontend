@@ -87,7 +87,7 @@ export default function WeatherSummary({ data }: WeatherSummaryProps) {
               </span>
             </div>
             <div className="text-center text-sm text-gray-500 dark:text-gray-400">
-              Różnica: {data.tempMax - data.tempMin}°C
+              Różnica: {(data.tempMax - data.tempMin).toFixed(1)}°C
             </div>
           </div>
         </div>
@@ -175,7 +175,7 @@ export default function WeatherSummary({ data }: WeatherSummaryProps) {
           </div>
           <div className="text-center">
             <span className="block font-medium text-gray-900 dark:text-gray-100">
-              {data.tempMax - data.tempMin}°C
+              {(data.tempMax - data.tempMin).toFixed(1)}°C
             </span>
             <span>Rozpiętość</span>
           </div>

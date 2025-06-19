@@ -12,14 +12,49 @@ import {
 import WeatherTable from '../components/WeatherTable'
 import WeatherSummary from '../components/WeatherSummary'
 
+interface DailyWeather {
+  date: string
+  weatherCode: number
+  tempMax: number
+  tempMin: number
+  solarEnergy: number
+}
+
+interface WeatherSummary {
+  tempMin: number
+  tempMax: number
+  avgPressure: number
+  avgSunExposure: number
+  comment: string
+}
+
+interface WeatherData {
+  daily: DailyWeather[]
+  summary: WeatherSummary
+}
+
 export default function HomePage() {
   const searchParams = useSearchParams()
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [weatherData, setWeatherData] = useState(null)
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
   const [locationLoading, setLocationLoading] = useState(false)
+
+  useEffect(() => {
+    const lat = searchParams.get('lat')
+    const lon = searchParams.get('lon')
+
+    if(lat && lon) {
+      setLatitude(lat)
+      setLongitude(lon)
+
+      setTimeout(() => {
+        fetchWeatherDataWithCoord(lat,lon)
+      }, 500)
+    }
+  }, [searchParams])
 
   const getCurrentLocation = () => {
     setLocationLoading(true)
@@ -49,15 +84,59 @@ export default function HomePage() {
     )
   }
 
+
   const fetchWeatherDataWithCoord = async (lat: string, lon: string) => {
-    setWeatherData(getMockWeatherData())
+    //setWeatherData(getMockWeatherData()) checking tables for static data
+
+    setLoading(true)
+    setError('')
+
+    try {
+      const [dailyResponse, weeklyResponse] = await Promise.all([
+        fetch(`/api/daily-forecast?latitude=${lat}&longitude=${lon}`),
+        fetch(`/api/weekly-summary?latitude=${lat}&longitude=${lon}`),
+      ])
+      if (!dailyResponse.ok || !weeklyResponse.ok) {
+        throw new Error('Nie udało sie pobrać danych z serwera')
+      }
+        const dailyData = await dailyResponse.json()
+        const weeklyData = await weeklyResponse.json()
+
+        const mappedData: WeatherData = {
+          daily: dailyData.daily.map((day: any) => ({
+            date: day.date,
+            weatherCode: day.weathercode, 
+            tempMax: day.temperature_max,
+            tempMin: day.temperature_min,
+            solarEnergy: day.solar_energy
+          })),
+          summary: {
+            tempMin: weeklyData.min_temperature,
+            tempMax: weeklyData.max_temperature,
+            avgPressure: weeklyData.average_pressure,
+            avgSunExposure: weeklyData.average_sunshine,
+            comment: weeklyData.summary
+          }
+        }
+
+        setWeatherData(mappedData)
+      
+    } catch (err){
+      console.error('API Error:', err)
+      setError(err instanceof Error ? err.message : 'Błąd połaczenia z serwerem')
+
+      console.log('Static Data loaded')
+      setWeatherData(getMockWeatherData())
+    }finally {
+      setLoading(false)
+    }
   }
   const fetchWeatherData = async () => {
     await fetchWeatherDataWithCoord(latitude, longitude)
   }
 
 // test
-  const getMockWeatherData = () => ({
+  const getMockWeatherData = (): WeatherData => ({
     daily: [
       {
         date: '17/06/2025',
