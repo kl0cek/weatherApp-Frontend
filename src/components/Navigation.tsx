@@ -12,7 +12,7 @@ import {
   faBars, 
   faTimes 
 } from '@fortawesome/free-solid-svg-icons'
-import { useTheme } from './ThemeProvider'
+import { useTheme } from '../context/ThemeProvider'
 import BackendStatus from './BackendStatus'
 
 export default function Navigation() {
