@@ -13,6 +13,7 @@ import {
   faTimes 
 } from '@fortawesome/free-solid-svg-icons'
 import { useTheme } from './ThemeProvider'
+import BackendStatus from './BackendStatus'
 
 export default function Navigation() {
   const pathname = usePathname()
@@ -70,7 +71,12 @@ export default function Navigation() {
             </button>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Backend Status */}
+          <div className="border-l border-gray-300 dark:border-gray-600 pl-4">
+            <BackendStatus />
+          </div>
+
+          {/* Mobile feature existing menu button */}
           <div className="md:hidden flex items-center space-x-2">
             <button
               onClick={toggleTheme}
@@ -116,6 +122,9 @@ export default function Navigation() {
                 <span>{item.name}</span>
               </Link>
             ))}
+            <div className="px-3 py-2 border-t border-gray-200 dark:border-gray-700">
+              <BackendStatus />
+            </div>
           </div>
         </div>
       </div>

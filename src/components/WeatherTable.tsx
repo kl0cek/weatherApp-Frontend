@@ -26,73 +26,84 @@ interface WeatherTableProps {
 
 export default function WeatherData({ data }: WeatherTableProps) {
     const getWeatherIcon = (code: number) => {
-        if (code <= 3) {
-    const basic = [
-      { icon: faSun, color: 'text-yellow-500', desc: 'Słonecznie' },
-      { icon: faCloudSun, color: 'text-yellow-400', desc: 'Przeważnie słonecznie' },
-      { icon: faCloud, color: 'text-gray-500', desc: 'Częściowo pochmurno' },
-      { icon: faCloud, color: 'text-gray-600', desc: 'Pochmurno' }
-    ];
-    return basic[code];
-  }
-
-    // Mgła
-    if (code === 45 || code === 48) {
-        return { icon: faSmog, color: 'text-gray-400', desc: 'Mgła' };
-    }
-
-    // Mżawka
-    if (code >= 51 && code <= 55) {
-        return { icon: faCloudRain, color: 'text-blue-400', desc: 'Mżawka' };
-    }
-
-    // Marznąca mżawka
-    if (code === 56 || code === 57) {
-        return { icon: faSnowflake, color: 'text-blue-300', desc: 'Marznąca mżawka' };
-    }
-
-    // Deszcz
-    if (code >= 61 && code <= 65) {
-        return { icon: faCloudRain, color: 'text-blue-500', desc: 'Deszcz' };
-    }
-
-    // Marznący deszcz
-    if (code === 66 || code === 67) {
-        return { icon: faSnowflake, color: 'text-blue-300', desc: 'Marznący deszcz' };
-    }
-
-    // Śnieg
-    if (code >= 71 && code <= 75) {
-        return { icon: faSnowflake, color: 'text-blue-200', desc: 'Śnieg' };
-    }
-
-    // Ziarnisty śnieg
-    if (code === 77) {
-        return { icon: faSnowflake, color: 'text-blue-100', desc: 'Ziarnisty śnieg' };
-    }
-
-    // Przelotne opady
-    if (code >= 80 && code <= 82) {
-        return { icon: faCloudShowersHeavy, color: 'text-blue-600', desc: 'Przelotne opady' };
-    }
-
-    // Przelotny śnieg
-    if (code === 85 || code === 86) {
-        return { icon: faSnowflake, color: 'text-blue-200', desc: 'Przelotny śnieg' };
-    }
-
-    // Burza
-    if (code === 95) {
-        return { icon: faBolt, color: 'text-purple-500', desc: 'Burza' };
-    }
-
-    // Burza z gradem
-    if (code === 96 || code === 99) {
-        return { icon: faBolt, color: 'text-purple-600', desc: 'Burza z gradem' };
-    }
-
-    // Domyślny przypadek
-    return { icon: faCloud, color: 'text-gray-500', desc: 'Nieznane' };
+        switch (code) {
+            // Podstawowe warunki pogodowe
+            case 0:
+                return { icon: faSun, color: 'text-yellow-500', desc: 'Słonecznie' };
+            case 1:
+                return { icon: faCloudSun, color: 'text-yellow-400', desc: 'Przeważnie słonecznie' };
+            case 2:
+                return { icon: faCloud, color: 'text-gray-500', desc: 'Częściowo pochmurno' };
+            case 3:
+                return { icon: faCloud, color: 'text-gray-600', desc: 'Pochmurno' };
+            
+            // Mgła
+            case 45:
+            case 48:
+                return { icon: faSmog, color: 'text-gray-400', desc: 'Mgła' };
+            
+            // Mżawka
+            case 51:
+            case 52:
+            case 53:
+            case 54:
+            case 55:
+                return { icon: faCloudRain, color: 'text-blue-400', desc: 'Mżawka' };
+            
+            // Marznąca mżawka
+            case 56:
+            case 57:
+                return { icon: faSnowflake, color: 'text-blue-300', desc: 'Marznąca mżawka' };
+            
+            // Deszcz
+            case 61:
+            case 62:
+            case 63:
+            case 64:
+            case 65:
+                return { icon: faCloudRain, color: 'text-blue-500', desc: 'Deszcz' };
+            
+            // Marznący deszcz
+            case 66:
+            case 67:
+                return { icon: faSnowflake, color: 'text-blue-300', desc: 'Marznący deszcz' };
+            
+            // Śnieg
+            case 71:
+            case 72:
+            case 73:
+            case 74:
+            case 75:
+                return { icon: faSnowflake, color: 'text-blue-200', desc: 'Śnieg' };
+            
+            // Ziarnisty śnieg
+            case 77:
+                return { icon: faSnowflake, color: 'text-blue-100', desc: 'Ziarnisty śnieg' };
+            
+            // Przelotne opady
+            case 80:
+            case 81:
+            case 82:
+                return { icon: faCloudShowersHeavy, color: 'text-blue-600', desc: 'Przelotne opady' };
+            
+            // Przelotny śnieg
+            case 85:
+            case 86:
+                return { icon: faSnowflake, color: 'text-blue-200', desc: 'Przelotny śnieg' };
+            
+            // Burza
+            case 95:
+                return { icon: faBolt, color: 'text-purple-500', desc: 'Burza' };
+            
+            // Burza z gradem
+            case 96:
+            case 99:
+                return { icon: faBolt, color: 'text-purple-600', desc: 'Burza z gradem' };
+            
+            // Domyślny przypadek
+            default:
+                return { icon: faCloud, color: 'text-gray-500', desc: 'Nieznane' };
+        }
     }
 
     const getDayName = (dateString: string) => {

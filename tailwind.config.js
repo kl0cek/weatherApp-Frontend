@@ -13,8 +13,8 @@ module.exports = {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-in': 'slideIn 0.5s ease-out',
         'scale-in': 'scaleIn 0.3s ease-out',
-        'bounce-gentle': 'bounceGentle 2s ease-in-out infinite',
-        'pulse-gentle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'bounce-gentle': 'bounceGentle 1s ease-in-out 1',
+        'pulse-gentle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) 1',
       },
       keyframes: {
         fadeIn: {
