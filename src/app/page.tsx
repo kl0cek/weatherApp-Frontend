@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
@@ -33,7 +33,7 @@ interface WeatherData {
   summary: WeatherSummary
 }
 
-export default function HomePage() {
+function WeatherContent() {
   const searchParams = useSearchParams()
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
@@ -84,10 +84,7 @@ export default function HomePage() {
     )
   }
 
-
   const fetchWeatherDataWithCoord = async (lat: string, lon: string) => {
-    //setWeatherData(getMockWeatherData()) checking tables for static data
-
     setLoading(true)
     setError('')
 
@@ -96,107 +93,44 @@ export default function HomePage() {
         fetch(`/api/daily-forecast?latitude=${lat}&longitude=${lon}`),
         fetch(`/api/weekly-summary?latitude=${lat}&longitude=${lon}`),
       ])
+      
       if (!dailyResponse.ok || !weeklyResponse.ok) {
         throw new Error('Nie udało sie pobrać danych z serwera')
       }
-        const dailyData = await dailyResponse.json()
-        const weeklyData = await weeklyResponse.json()
-
-        const mappedData: WeatherData = {
-          daily: dailyData.daily.map((day: any) => ({
-            date: day.date,
-            weatherCode: day.weathercode, 
-            tempMax: day.temperature_max,
-            tempMin: day.temperature_min,
-            solarEnergy: day.solar_energy
-          })),
-          summary: {
-            tempMin: weeklyData.min_temperature,
-            tempMax: weeklyData.max_temperature,
-            avgPressure: weeklyData.average_pressure,
-            avgSunExposure: weeklyData.average_sunshine,
-            comment: weeklyData.summary
-          }
-        }
-
-        setWeatherData(mappedData)
       
-    } catch (err){
-      console.error('API Error:', err)
-      setError(err instanceof Error ? err.message : 'Błąd połaczenia z serwerem')
+      const dailyData = await dailyResponse.json()
+      const weeklyData = await weeklyResponse.json()
 
-      //console.log('Static Data loaded')
-      //setWeatherData(getMockWeatherData())
-    }finally {
+      const mappedData: WeatherData = {
+        daily: dailyData.daily.map((day: Record<string, unknown>) => ({
+          date: day.date as string,
+          weatherCode: day.weathercode as number, 
+          tempMax: day.temperature_max as number,
+          tempMin: day.temperature_min as number,
+          solarEnergy: day.solar_energy as number
+        })),
+        summary: {
+          tempMin: weeklyData.min_temperature as number,
+          tempMax: weeklyData.max_temperature as number,
+          avgPressure: weeklyData.average_pressure as number,
+          avgSunExposure: weeklyData.average_sunshine as number,
+          comment: weeklyData.summary as string
+        }
+      }
+
+      setWeatherData(mappedData)
+      
+    } catch (err) {
+      console.error('API Error:', err)
+      setError(err instanceof Error ? err.message : 'Błąd połączenia z serwerem')
+    } finally {
       setLoading(false)
     }
   }
+
   const fetchWeatherData = async () => {
     await fetchWeatherDataWithCoord(latitude, longitude)
   }
-
-// test
-  const getMockWeatherData = (): WeatherData => ({
-    daily: [
-      {
-        date: '17/06/2025',
-        weatherCode: 1,
-        tempMax: 24,
-        tempMin: 16,
-        solarEnergy: 4.2
-      },
-      {
-        date: '18/06/2025',
-        weatherCode: 2,
-        tempMax: 26,
-        tempMin: 18,
-        solarEnergy: 3.8
-      },
-      {
-        date: '19/06/2025',
-        weatherCode: 61,
-        tempMax: 22,
-        tempMin: 15,
-        solarEnergy: 2.1
-      },
-      {
-        date: '20/06/2025',
-        weatherCode: 3,
-        tempMax: 25,
-        tempMin: 17,
-        solarEnergy: 3.5
-      },
-      {
-        date: '21/06/2025',
-        weatherCode: 0,
-        tempMax: 28,
-        tempMin: 19,
-        solarEnergy: 5.1
-      },
-      {
-        date: '22/06/2025',
-        weatherCode: 80,
-        tempMax: 21,
-        tempMin: 14,
-        solarEnergy: 1.8
-      },
-      {
-        date: '23/06/2025',
-        weatherCode: 1,
-        tempMax: 23,
-        tempMin: 16,
-        solarEnergy: 4.0
-      }
-    ],
-    summary: {
-      tempMin: 14,
-      tempMax: 28,
-      avgPressure: 1013.2,
-      avgSunExposure: 6.8,
-      comment: 'Przeważnie słoneczny tydzień z pojedynczymi opadami w środku okresu.'
-    }
-  })
-
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -336,5 +270,37 @@ export default function HomePage() {
         </div>
       </div>
     </div>
+  )
+}
+
+function LoadingPage() {
+  return (
+    <div className="space-y-8 animate-pulse">
+      <div className="text-center space-y-4">
+        <div className="h-12 bg-gray-300 dark:bg-gray-700 rounded-lg mx-auto max-w-lg"></div>
+        <div className="h-6 bg-gray-200 dark:bg-gray-600 rounded mx-auto max-w-2xl"></div>
+      </div>
+      <div className="card max-w-2xl mx-auto">
+        <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded mb-6"></div>
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="h-20 bg-gray-200 dark:bg-gray-600 rounded"></div>
+            <div className="h-20 bg-gray-200 dark:bg-gray-600 rounded"></div>
+          </div>
+          <div className="flex gap-3">
+            <div className="h-12 bg-gray-200 dark:bg-gray-600 rounded flex-1"></div>
+            <div className="h-12 bg-gray-200 dark:bg-gray-600 rounded flex-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={<LoadingPage />}>
+      <WeatherContent />
+    </Suspense>
   )
 }
