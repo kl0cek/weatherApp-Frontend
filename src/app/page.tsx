@@ -125,8 +125,8 @@ export default function HomePage() {
       console.error('API Error:', err)
       setError(err instanceof Error ? err.message : 'Błąd połaczenia z serwerem')
 
-      console.log('Static Data loaded')
-      setWeatherData(getMockWeatherData())
+      //console.log('Static Data loaded')
+      //setWeatherData(getMockWeatherData())
     }finally {
       setLoading(false)
     }

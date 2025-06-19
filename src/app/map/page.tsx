@@ -206,8 +206,8 @@ export default function MapPage() {
       console.error('API Error:', err)
       setError(err instanceof Error ? err.message : 'Błąd połączenia z serwerem')
 
-      console.log('Static Data loaded')
-      setWeatherData(getMockWeatherData())
+      //console.log('Static Data loaded')
+      //setWeatherData(getMockWeatherData())
     } finally {
       setLoading(false)
     }
