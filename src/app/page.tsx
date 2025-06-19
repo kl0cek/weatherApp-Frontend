@@ -214,7 +214,7 @@ export default function HomePage() {
       {/* Location Input Form */}
       <div className="card max-w-2xl mx-auto animate-scale-in">
         <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-6 text-center">
-          Wybierz lokalizację
+          Wpisz lokalizacje
         </h2>
         
         <div className="space-y-4">
@@ -326,7 +326,7 @@ export default function HomePage() {
           </div>
           <div>
             <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">
-              Wybierz z mapy w trakcie heh bedzie to bedzie frfr
+              Wybierz z mapy
             </h4>
             <p>
               Przejdź do sekcji &quot;Wybierz z mapy&quot; aby wybrać lokalizację 
