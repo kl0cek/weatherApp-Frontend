@@ -85,7 +85,7 @@ export default function MapPage() {
     }).addTo(mapInstance)
 
     
-    let currentMarker: any = null
+    const currentMarker = null
 
     mapInstance.on('click', (e: any) => {
       const { lat, lng } = e.latlng

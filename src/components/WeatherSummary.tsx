@@ -7,14 +7,7 @@ import {
   faSun,
   faComment
 } from '@fortawesome/free-solid-svg-icons'
-
-interface WeatherSummaryData {
-  tempMin: number
-  tempMax: number
-  avgPressure: number
-  avgSunExposure: number
-  comment: string
-}
+import { WeatherSummaryData } from '../types/types'
 
 interface WeatherSummaryProps {
   data: WeatherSummaryData
