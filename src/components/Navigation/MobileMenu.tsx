@@ -6,9 +6,7 @@ import { faSun, faMoon, faBars, faTimes } from '@fortawesome/free-solid-svg-icon
 
 export const MobileMenu = () => {
     const { theme, setTheme } = useTheme()
-      const [isMenuOpen, setIsMenuOpen] = useState(false)
-    
-    
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const toggleTheme = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark')

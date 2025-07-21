@@ -19,6 +19,7 @@ export const getSunExposureCategory = (hours: number) => {
   if (hours > 8) return { text: 'Dużo słońca', color: 'text-yellow-600 dark:text-yellow-400' }
   return { text: 'Umiarkowanie', color: 'text-orange-600 dark:text-orange-400' }
 }
+
 export const getEnergyColor = (energy: number) => {
     if (energy >= 4) return 'text-green-600 dark:text-green-400'
     if (energy >= 2.5) return 'text-yellow-600 dark:text-yellow-400'

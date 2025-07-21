@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { LocationFormProps } from '../types/types'
 
-export function LocationForm({
+export const  LocationForm = ({
   coordinates,
   onCoordinatesChange,
   onGetCurrentLocation,
@@ -15,7 +15,8 @@ export function LocationForm({
   loading,
   locationLoading,
   error
-}: LocationFormProps) {
+}: LocationFormProps) => {
+  
   const handleLatitudeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onCoordinatesChange({ ...coordinates, latitude: e.target.value })
   }

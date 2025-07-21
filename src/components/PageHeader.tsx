@@ -1,4 +1,4 @@
-export function PageHeader() {
+export const PageHeader = () => {
   return (
     <header className="text-center space-y-4">
       <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 animate-slide-in">

@@ -1,4 +1,4 @@
-export function InfoCard() {
+export const InfoCard = () => {
   return (
     <div className="card max-w-4xl mx-auto animate-scale-in">
       <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
@@ -19,7 +19,7 @@ export function InfoCard() {
             Użyj automatycznej lokalizacji
           </h4>
           <p>
-            Kliknij przycisk "Użyj mojej lokalizacji" aby automatycznie 
+            Kliknij przycisk &quot;Użyj mojej lokalizacji&quot;
             pobrać twoje obecne współrzędne
           </p>
         </div>
@@ -28,7 +28,7 @@ export function InfoCard() {
             Wybierz z mapy
           </h4>
           <p>
-            Przejdź do sekcji "Wybierz z mapy" aby wybrać lokalizację 
+            Przejdź do sekcji &quot;Wybierz z mapy&quot; aby wybrać lokalizację 
             klikając na interaktywnej mapie świata
           </p>
         </div>

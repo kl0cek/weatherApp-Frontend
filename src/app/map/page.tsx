@@ -9,10 +9,8 @@ import {
   faExclamationTriangle,
   faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons'
-import { InfoCard } from '../components/InfoCard'
-import { WeatherResults } from '../components/WeatherResult'
-import { PageHeader } from '../components/PageHeader'
-import { WeatherData } from '../types/types'
+import { InfoCard, WeatherResult, PageHeader } from '../../components/index'
+import { WeatherData } from '../../types/types'
 
 
 declare global {
@@ -200,7 +198,6 @@ export default function MapPage() {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      {/* Header */}
       <PageHeader />
 
       {/* Map Container */}
@@ -294,7 +291,7 @@ export default function MapPage() {
       </div>
 
       {/* Weather Results */}
-      {weatherData && <WeatherResults data={weatherData} />}
+      {weatherData && <WeatherResult data={weatherData} />}
 
       {/* Info Card */}
       <InfoCard />

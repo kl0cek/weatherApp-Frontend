@@ -1,0 +1,5 @@
+export { Comment } from './Comment'
+export { Pressure } from './Pressure'
+export { QuickStats} from './QuickStats'
+export {SunExposure} from './SunExposure'
+export { Temperature} from './Temperature'

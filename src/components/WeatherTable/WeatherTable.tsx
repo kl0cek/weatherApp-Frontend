@@ -1,15 +1,13 @@
 'use client'
 
-import { DailyWeather } from '../types/types'
-import { MobileCard } from './MobileCard'
-import { DesktopTable } from './DesktopTable'
-
+import { DailyWeather } from '../../types/types'
+import { MobileCard, DesktopTable } from './index'
 
 interface WeatherTableProps {
     data: DailyWeather[]
 }
 
-export default function WeatherData({ data }: WeatherTableProps) {
+export const WeatherTable = ({ data }: WeatherTableProps) => {
     
   return (
     <div className="card animate-slide-in">

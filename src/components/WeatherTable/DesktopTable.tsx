@@ -1,8 +1,8 @@
 'use client'
-import { getWeatherIcon } from "../data/dataCode"
-import { getDayName, getEnergyColor } from "../utils/weatherUtils"
+import { getWeatherIcon } from "../../data/dataCode"
+import { getDayName, getEnergyColor } from "../../utils/weatherUtils"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { DailyWeather } from "../types/types"
+import { DailyWeather } from "../../types/types"
 
 interface WeatherTableProps {
     data: DailyWeather[]

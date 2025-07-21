@@ -1,12 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import BackendStatus from './BackendStatus'
-import { MobileNavigation } from './Navigation/MobileNavigation'
-import { MobileMenu } from './Navigation/MobileMenu'
-import { DesktopNavigation } from './Navigation/DesktopNavigation'
+import BackendStatus from '../BackendStatus'
+import { DesktopNavigation, MobileMenu, MobileNavigation } from './index'
 
-export default function Navigation() {
+export const Navigation = () => {
 
 
   return (

@@ -8,7 +8,7 @@ import {
     faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons'
 
-export default function BackendStatus() {
+export const  BackendStatus = () => {
     const [status, setStatus] = useState<'checking' | 'online' | 'offline'>('checking')
     const [lastChecked, setLastChecked] = useState<Date | null>(null)
 
@@ -27,6 +27,7 @@ export default function BackendStatus() {
                 setStatus('offline')
             }
         } catch (error){
+            console.error("Błąd podczas sprawdzania backendu:", error)
             setStatus('offline')
         } finally {
             setLastChecked(new Date())

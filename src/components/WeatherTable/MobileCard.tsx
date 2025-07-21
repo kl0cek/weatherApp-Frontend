@@ -1,9 +1,9 @@
 'use client'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getEnergyColor, getDayName } from '../utils/weatherUtils'
-import { DailyWeather } from '../types/types'
-import { getWeatherIcon } from '../data/dataCode'
+import { getEnergyColor, getDayName } from '../../utils/weatherUtils'
+import { DailyWeather } from '../../types/types'
+import { getWeatherIcon } from '../../data/dataCode'
 
 
 interface WeatherTableProps {
