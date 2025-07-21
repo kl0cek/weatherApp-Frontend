@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
   faLocationDot, 
@@ -10,32 +9,11 @@ import {
   faExclamationTriangle,
   faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons'
-import WeatherTable from '../../components/WeatherTable'
-import WeatherSummary from '../../components/WeatherSummary'
 import { InfoCard } from '../components/InfoCard'
 import { WeatherResults } from '../components/WeatherResult'
 import { PageHeader } from '../components/PageHeader'
+import { WeatherData } from '../types/types'
 
-interface DailyWeather {
-  date: string
-  weatherCode: number
-  tempMax: number
-  tempMin: number
-  solarEnergy: number
-}
-
-interface WeatherSummary {
-  tempMin: number
-  tempMax: number
-  avgPressure: number
-  avgSunExposure: number
-  comment: string
-}
-
-interface WeatherData {
-  daily: DailyWeather[]
-  summary: WeatherSummary
-}
 
 declare global {
   interface Window {
