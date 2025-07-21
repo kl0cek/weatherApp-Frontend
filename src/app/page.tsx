@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { PageHeader } from '../components/PageHeader'
 import { LocationForm } from '../components/LocationForm'
