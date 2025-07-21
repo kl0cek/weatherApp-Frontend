@@ -8,7 +8,6 @@ import { WeatherResults } from '../components/WeatherResult'
 import { InfoCard } from '../components/InfoCard'
 import { useWeatherData } from '../hooks/useWeatherData'
 import { useGeolocation } from '../hooks/useGeolocation'
-import { WeatherData } from '../types/types'
 
 export default function HomePage() {
   const searchParams = useSearchParams()

@@ -71,7 +71,6 @@ export default function Navigation() {
             </button>
           </div>
 
-          {/* Backend Status */}
           <div className="border-l border-gray-300 dark:border-gray-600 pl-4">
             <BackendStatus />
           </div>
@@ -123,6 +122,7 @@ export default function Navigation() {
               </Link>
             ))}
             <div className="px-3 py-2 border-t border-gray-200 dark:border-gray-700">
+              
               <BackendStatus />
             </div>
           </div>

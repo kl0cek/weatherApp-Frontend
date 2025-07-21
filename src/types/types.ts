@@ -33,3 +33,21 @@ export interface LocationFormProps {
   locationLoading: boolean
   error: string
 }
+
+export interface DailyForecastApiResponse {
+  daily: Array<{
+    date: string
+    weathercode: number
+    temperature_max: number
+    temperature_min: number
+    solar_energy: number
+  }>
+}
+
+export interface WeeklySummaryApiResponse {
+  min_temperature: number
+  max_temperature: number
+  average_pressure: number
+  average_sunshine: number
+  summary: string
+}

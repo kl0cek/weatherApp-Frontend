@@ -1,4 +1,8 @@
-import { WeatherData } from '../types/types'
+import { 
+  WeatherData, 
+  DailyForecastApiResponse, 
+  WeeklySummaryApiResponse 
+} from '../types/types'
 
 export const weatherService = {
   async fetchWeatherData(latitude: string, longitude: string): Promise<WeatherData> {
@@ -11,15 +15,26 @@ export const weatherService = {
       throw new Error('Nie udało się pobrać danych z serwera')
     }
 
-    const dailyData = await dailyResponse.json()
-    const weeklyData = await weeklyResponse.json()
+    const dailyData: DailyForecastApiResponse = await dailyResponse.json()
+    const weeklyData: WeeklySummaryApiResponse = await weeklyResponse.json()
 
     return this.mapApiDataToWeatherData(dailyData, weeklyData)
   },
 
-  mapApiDataToWeatherData(dailyData: any, weeklyData: any): WeatherData {
+  mapApiDataToWeatherData(
+    dailyData: DailyForecastApiResponse, 
+    weeklyData: WeeklySummaryApiResponse
+  ): WeatherData {
+    if (!dailyData.daily || !Array.isArray(dailyData.daily)) {
+      throw new Error('Nieprawidłowa struktura danych z API - daily data')
+    }
+
+    if (!weeklyData || typeof weeklyData !== 'object') {
+      throw new Error('Nieprawidłowa struktura danych z API - weekly data')
+    }
+
     return {
-      daily: dailyData.daily.map((day: any) => ({
+      daily: dailyData.daily.map(day => ({
         date: day.date,
         weatherCode: day.weathercode,
         tempMax: day.temperature_max,

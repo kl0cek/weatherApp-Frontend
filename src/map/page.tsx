@@ -9,10 +9,12 @@ import {
   faSpinner,
   faExclamationTriangle,
   faMapMarkerAlt,
-  faInfoCircle
 } from '@fortawesome/free-solid-svg-icons'
 import WeatherTable from '../../components/WeatherTable'
 import WeatherSummary from '../../components/WeatherSummary'
+import { InfoCard } from '../components/InfoCard'
+import { WeatherResults } from '../components/WeatherResult'
+import { PageHeader } from '../components/PageHeader'
 
 interface DailyWeather {
   date: string
@@ -42,7 +44,6 @@ declare global {
 }
 
 export default function MapPage() {
-  const router = useRouter()
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
   const [loading, setLoading] = useState(false)
@@ -85,7 +86,7 @@ export default function MapPage() {
     }).addTo(mapInstance)
 
     
-    const currentMarker = null
+    let currentMarker = null
 
     mapInstance.on('click', (e: any) => {
       const { lat, lng } = e.latlng
@@ -219,80 +220,10 @@ export default function MapPage() {
     }
   }
 
-  // test
-  const getMockWeatherData = (): WeatherData => ({
-    daily: [
-      {
-        date: '17/06/2025',
-        weatherCode: 1,
-        tempMax: 24,
-        tempMin: 16,
-        solarEnergy: 4.2
-      },
-      {
-        date: '18/06/2025',
-        weatherCode: 2,
-        tempMax: 26,
-        tempMin: 18,
-        solarEnergy: 3.8
-      },
-      {
-        date: '19/06/2025',
-        weatherCode: 61,
-        tempMax: 22,
-        tempMin: 15,
-        solarEnergy: 2.1
-      },
-      {
-        date: '20/06/2025',
-        weatherCode: 3,
-        tempMax: 25,
-        tempMin: 17,
-        solarEnergy: 3.5
-      },
-      {
-        date: '21/06/2025',
-        weatherCode: 0,
-        tempMax: 28,
-        tempMin: 19,
-        solarEnergy: 5.1
-      },
-      {
-        date: '22/06/2025',
-        weatherCode: 80,
-        tempMax: 21,
-        tempMin: 14,
-        solarEnergy: 1.8
-      },
-      {
-        date: '23/06/2025',
-        weatherCode: 1,
-        tempMax: 23,
-        tempMin: 16,
-        solarEnergy: 4.0
-      }
-    ],
-    summary: {
-      tempMin: 14,
-      tempMax: 28,
-      avgPressure: 1013.2,
-      avgSunExposure: 6.8,
-      comment: 'Przeważnie słoneczny tydzień z pojedynczymi opadami w środku okresu.'
-    }
-  })
-
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 animate-slide-in">
-          Wybierz lokalizację na mapie
-        </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto animate-slide-in">
-          Kliknij na mapę aby wybrać lokalizację, lub użyj przycisku do automatycznego 
-          pobrania swojej pozycji
-        </p>
-      </div>
+      <PageHeader />
 
       {/* Map Container */}
       <div className="card max-w-4xl mx-auto animate-scale-in">
@@ -385,51 +316,10 @@ export default function MapPage() {
       </div>
 
       {/* Weather Results */}
-      {weatherData && (
-        <div className="space-y-8 animate-fade-in">
-          <WeatherTable data={weatherData.daily} />
-          <WeatherSummary data={weatherData.summary} />
-        </div>
-      )}
+      {weatherData && <WeatherResults data={weatherData} />}
 
       {/* Info Card */}
-      <div className="card max-w-4xl mx-auto animate-scale-in">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
-          💡 Jak korzystać z mapy
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-600 dark:text-gray-400">
-          <div>
-            <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">
-              <FontAwesomeIcon icon={faMapMarkerAlt} className="w-4 h-4 mr-2" />
-              Kliknij na mapę
-            </h4>
-            <p>
-              Kliknij w dowolne miejsce na mapie aby wybrać lokalizację. 
-              Współrzędne zostaną automatycznie pobrane.
-            </p>
-          </div>
-          <div>
-            <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">
-              <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4 mr-2" />
-              Użyj geolokalizacji
-            </h4>
-            <p>
-              Kliknij przycisk aby automatycznie pobrać swoją obecną lokalizację 
-              i wycentrować mapę.
-            </p>
-          </div>
-          <div>
-            <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">
-              <FontAwesomeIcon icon={faSearch} className="w-4 h-4 mr-2" />
-              Pobierz prognozę
-            </h4>
-            <p>
-              Po wybraniu lokalizacji kliknij przycisk aby pobrać szczegółową 
-              prognozę pogody na 7 dni.
-            </p>
-          </div>
-        </div>
-      </div>
+      <InfoCard />
     </div>
   )
 }

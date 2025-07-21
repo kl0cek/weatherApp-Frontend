@@ -5,9 +5,11 @@ import {
   faThermometerHalf,
   faGaugeHigh,
   faSun,
-  faComment
 } from '@fortawesome/free-solid-svg-icons'
 import { WeatherSummaryData } from '../types/types'
+import { formatSunExposure, getPressureCategory, getSunExposureCategory } from '../utils/weatherUtils'
+import { QuickStats } from './QuickStats'
+import { Comment } from './Comment'
 
 interface WeatherSummaryProps {
   data: WeatherSummaryData
@@ -16,28 +18,6 @@ interface WeatherSummaryProps {
 export default function WeatherSummary({ data }: WeatherSummaryProps) {
   const formatPressure = (pressure: number) => {
     return `${pressure.toFixed(1)} hPa`
-  }
-
-  const formatSunExposure = (hours: number) => {
-    const wholeHours = Math.floor(hours)
-    const minutes = Math.round((hours - wholeHours) * 60)
-    
-    if (minutes === 0) {
-      return `${wholeHours}h`
-    }
-    return `${wholeHours}h ${minutes}min`
-  }
-
-  const getPressureCategory = (pressure: number) => {
-    if (pressure < 1000) return { text: 'Niskie', color: 'text-blue-600 dark:text-blue-400' }
-    if (pressure > 1020) return { text: 'Wysokie', color: 'text-green-600 dark:text-green-400' }
-    return { text: 'Normalne', color: 'text-gray-600 dark:text-gray-400' }
-  }
-
-  const getSunExposureCategory = (hours: number) => {
-    if (hours < 4) return { text: 'Mało słońca', color: 'text-gray-600 dark:text-gray-400' }
-    if (hours > 8) return { text: 'Dużo słońca', color: 'text-yellow-600 dark:text-yellow-400' }
-    return { text: 'Umiarkowanie', color: 'text-orange-600 dark:text-orange-400' }
   }
 
   const pressureCategory = getPressureCategory(data.avgPressure)
@@ -140,46 +120,9 @@ export default function WeatherSummary({ data }: WeatherSummaryProps) {
         </div>
       </div>
 
-      {/* Comment Section */}
-      <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-lg p-6 animate-scale-in" style={{ animationDelay: '300ms' }}>
-        <div className="flex items-start space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-            <FontAwesomeIcon icon={faComment} className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
-              Podsumowanie prognozy
-            </h3>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              {data.comment}
-            </p>
-          </div>
-        </div>
-      </div>
+      <Comment data={data} />
 
-      {/* Quick Stats Footer */}
-      <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-        <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400">
-          <div className="text-center">
-            <span className="block font-medium text-gray-900 dark:text-gray-100">
-              {Math.round((data.tempMax + data.tempMin) / 2)}°C
-            </span>
-            <span>Średnia temp.</span>
-          </div>
-          <div className="text-center">
-            <span className="block font-medium text-gray-900 dark:text-gray-100">
-              {(data.tempMax - data.tempMin).toFixed(1)}°C
-            </span>
-            <span>Rozpiętość</span>
-          </div>
-          <div className="text-center">
-            <span className="block font-medium text-gray-900 dark:text-gray-100">
-              {Math.round(data.avgSunExposure * 7)}h
-            </span>
-            <span>Słońce/tydzień</span>
-          </div>
-        </div>
-      </div>
+      <QuickStats data={data} />
     </div>
   )
 }
