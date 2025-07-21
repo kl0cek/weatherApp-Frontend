@@ -2,7 +2,7 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getEnergyColor, getDayName } from '../../utils/weatherUtils'
-import { DailyWeather } from '../../types/types'
+import { DailyWeather } from '../../types/weather'
 import { getWeatherIcon } from '../../data/dataCode'
 
 

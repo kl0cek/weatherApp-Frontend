@@ -1,6 +1,6 @@
 'use client'
 
-import { DailyWeather } from '../../types/types'
+import { DailyWeather } from '../../types/weather'
 import { MobileCard, DesktopTable } from './index'
 
 interface WeatherTableProps {

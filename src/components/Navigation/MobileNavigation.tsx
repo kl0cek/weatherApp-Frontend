@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
-import BackendStatus from '../BackendStatus'
+import {BackendStatus} from '../BackendStatus'
 
 export const MobileNavigation = () => {
     const pathname = usePathname()

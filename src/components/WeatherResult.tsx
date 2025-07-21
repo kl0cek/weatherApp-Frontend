@@ -1,5 +1,5 @@
 import {WeatherTable, WeatherSummary } from './index'
-import { WeatherData } from '../types/types'
+import { WeatherData } from '../types/weather'
 
 interface WeatherResultsProps {
   data: WeatherData

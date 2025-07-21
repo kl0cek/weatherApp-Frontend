@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { WeatherData } from '../types/types'
+import { WeatherData } from '../types/weather'
 import { weatherService } from '../services/weatherService'
 
 export const useWeatherData = () => {

@@ -3,7 +3,7 @@
 import { formatSunExposure } from '@/src/utils/weatherUtils'
 import { faSun } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { WeatherSummaryData } from '@/src/types/types'
+import { WeatherSummaryData } from '@/src/types/weather'
 import { getSunExposureCategory } from '@/src/utils/weatherUtils'
 
 interface WeatherSummaryProps {

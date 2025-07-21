@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { Coordinates } from '../types/types'
+import { Coordinates } from '../types/weather'
 
 export const useGeolocation = (setCoordinates: (coords: Coordinates) => void) => {
   const [loading, setLoading] = useState(false)

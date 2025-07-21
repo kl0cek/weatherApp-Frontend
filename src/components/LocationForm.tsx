@@ -5,7 +5,7 @@ import {
   faSpinner,
   faExclamationTriangle 
 } from '@fortawesome/free-solid-svg-icons'
-import { LocationFormProps } from '../types/types'
+import { LocationFormProps } from '../types/weather'
 
 export const  LocationForm = ({
   coordinates,

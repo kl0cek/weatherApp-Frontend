@@ -2,7 +2,7 @@
 
 import { faThermometerHalf } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { WeatherSummaryData } from '@/src/types/types'
+import { WeatherSummaryData } from '@/src/types/weather'
 
 interface WeatherSummaryProps {
   data: WeatherSummaryData

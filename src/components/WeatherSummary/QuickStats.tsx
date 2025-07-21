@@ -1,6 +1,6 @@
 'use client'
 
-import { WeatherSummaryData } from "../../types/types"
+import { WeatherSummaryData } from "../../types/weather"
 
 interface WeatherSummaryProps {
   data: WeatherSummaryData

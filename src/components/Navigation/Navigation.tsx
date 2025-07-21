@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import BackendStatus from '../BackendStatus'
+import {BackendStatus} from '../BackendStatus'
 import { DesktopNavigation, MobileMenu, MobileNavigation } from './index'
 
 export const Navigation = () => {

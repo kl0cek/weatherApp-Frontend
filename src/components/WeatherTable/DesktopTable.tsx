@@ -2,7 +2,7 @@
 import { getWeatherIcon } from "../../data/dataCode"
 import { getDayName, getEnergyColor } from "../../utils/weatherUtils"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { DailyWeather } from "../../types/types"
+import { DailyWeather } from "../../types/weather"
 
 interface WeatherTableProps {
     data: DailyWeather[]

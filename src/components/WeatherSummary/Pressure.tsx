@@ -3,7 +3,7 @@
 import { faGaugeHigh } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getPressureCategory } from '@/src/utils/weatherUtils'
-import { WeatherSummaryData } from '@/src/types/types'
+import { WeatherSummaryData } from '@/src/types/weather'
 
 interface WeatherSummaryProps {
   data: WeatherSummaryData

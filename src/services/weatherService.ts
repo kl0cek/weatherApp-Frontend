@@ -2,7 +2,7 @@ import {
   WeatherData, 
   DailyForecastApiResponse, 
   WeeklySummaryApiResponse 
-} from '../types/types'
+} from '../types/weather'
 
 export const weatherService = {
   async fetchWeatherData(latitude: string, longitude: string): Promise<WeatherData> {
