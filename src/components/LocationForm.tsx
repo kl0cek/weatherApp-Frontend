@@ -6,6 +6,7 @@ import {
   faExclamationTriangle 
 } from '@fortawesome/free-solid-svg-icons'
 import { LocationFormProps } from '../types/weather'
+import { useLocationHandler } from '../hooks'
 
 export const  LocationForm = ({
   coordinates,
@@ -16,14 +17,11 @@ export const  LocationForm = ({
   locationLoading,
   error
 }: LocationFormProps) => {
-  
-  const handleLatitudeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onCoordinatesChange({ ...coordinates, latitude: e.target.value })
-  }
 
-  const handleLongitudeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onCoordinatesChange({ ...coordinates, longitude: e.target.value })
-  }
+  const {handleLatitudeChange, handleLongitudeChange } = useLocationHandler({
+    coordinates,
+    onCoordinatesChange
+  })
 
   const isFormValid = coordinates.latitude && coordinates.longitude
 
@@ -44,7 +42,7 @@ export const  LocationForm = ({
               type="number"
               step="any"
               placeholder="np. 50.0647"
-              value={coordinates.latitude}
+              value={coordinates.latitude ?? ''}
               onChange={handleLatitudeChange}
               className="input-field"
             />
@@ -59,7 +57,7 @@ export const  LocationForm = ({
               type="number"
               step="any"
               placeholder="np. 19.9450"
-              value={coordinates.longitude}
+              value={coordinates.longitude ?? ''}
               onChange={handleLongitudeChange}
               className="input-field"
             />

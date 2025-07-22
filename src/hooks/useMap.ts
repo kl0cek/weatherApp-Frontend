@@ -1,6 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { loadLeafletMap } from '../utils/mapLoader'
-import type { LeafletMap, LeafletMarker, UseMapProps, UseMapReturn } from '../types/leafletTypes'
+import type { 
+  LeafletMap, 
+  LeafletMarker, 
+  LeafletEvent,
+  LeafletLibrary,
+  UseMapProps, 
+  UseMapReturn 
+} from '../types/leafletTypes'
 
 export const useMap = ({
   containerId,
@@ -19,7 +26,8 @@ export const useMap = ({
     }
 
     if (window.L) {
-      const newMarker = window.L.marker([lat, lng]).addTo(map)
+      const L: LeafletLibrary = window.L
+      const newMarker = L.marker([lat, lng]).addTo(map)
       markerRef.current = newMarker
     }
   }, [])
@@ -31,7 +39,7 @@ export const useMap = ({
     }
   }, [updateMapMarker])
 
-  const handleMapClick = useCallback((e: any) => {
+  const handleMapClick = useCallback((e: LeafletEvent) => {
     const { lat, lng } = e.latlng
     onCoordinatesChange(lat, lng)
     

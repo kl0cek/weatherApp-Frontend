@@ -5,10 +5,12 @@ import { useSearchParams } from 'next/navigation'
 import { useWeatherData } from '../hooks/useWeatherData'
 import { useGeolocation } from '../hooks/useGeolocation'
 
-
 function WeatherPageContent() {
   const searchParams = useSearchParams()
-  const [coordinates, setCoordinates] = useState({ latitude: '', longitude: '' })
+  const [coordinates, setCoordinates] = useState<{ latitude: number | null; longitude: number | null }>({
+    latitude: null, 
+    longitude: null 
+  }) 
   
   const {
     weatherData,
@@ -19,23 +21,34 @@ function WeatherPageContent() {
   
   const {
     getCurrentLocation,
-    loading: locationLoading
-  } = useGeolocation(setCoordinates)
+    loading: locationLoading,
+    error: locationError
+  } = useGeolocation({
+    onSuccess: (lat: number, lng: number) => {
+      setCoordinates({ latitude: lat, longitude: lng })
+    }
+  })
 
   useEffect(() => {
     const lat = searchParams.get('lat')
     const lon = searchParams.get('lon')
     if (lat && lon) {
-      setCoordinates({ latitude: lat, longitude: lon })
+      const latNum = parseFloat(lat)
+      const lonNum = parseFloat(lon)
+      setCoordinates({ latitude: latNum, longitude: lonNum })
       setTimeout(() => {
-        fetchWeatherData(lat, lon)
+        fetchWeatherData(latNum.toString(), lonNum.toString())
       }, 500)
     }
   }, [searchParams, fetchWeatherData])
 
   const handleFetchWeather = () => {
-    fetchWeatherData(coordinates.latitude, coordinates.longitude)
+    if (coordinates.latitude !== null && coordinates.longitude !== null) {
+      fetchWeatherData(coordinates.latitude.toString(), coordinates.longitude.toString())
+    }
   }
+
+  const displayError = error || locationError
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -47,7 +60,7 @@ function WeatherPageContent() {
         onFetchWeather={handleFetchWeather}
         loading={loading}
         locationLoading={locationLoading}
-        error={error}
+        error={displayError || ''}
       />
       {weatherData && <WeatherResult data={weatherData} />}
       <InfoCard />

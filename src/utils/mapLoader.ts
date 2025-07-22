@@ -1,10 +1,4 @@
-import type { LeafletMap } from '../types/leafletTypes'
-
-declare global {
-  interface Window {
-    L: any;
-  }
-}
+import type { LeafletMap, LeafletLibrary } from '../types/leafletTypes'
 
 const loadLeafletCSS = (): Promise<void> => {
   return new Promise((resolve) => {
@@ -43,9 +37,10 @@ export const loadLeafletMap = async (
     throw new Error('Failed to load Leaflet library')
   }
 
-  const map = window.L.map(containerId).setView(center, zoom)
+  const L: LeafletLibrary = window.L
+  const map = L.map(containerId).setView(center, zoom)
 
-  window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
   }).addTo(map)
 

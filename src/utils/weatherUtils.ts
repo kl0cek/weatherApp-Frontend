@@ -44,3 +44,5 @@ export const getDayName = (dateString: string) => {
     
     return date.toLocaleDateString('pl-PL', { weekday: 'long' })
   }
+
+  

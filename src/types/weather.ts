@@ -20,8 +20,8 @@ export interface WeatherData {
 }
 
 export interface Coordinates {
-  latitude: string
-  longitude: string
+  latitude: number | null
+  longitude: number | null
 }
 
 export interface LocationFormProps {
